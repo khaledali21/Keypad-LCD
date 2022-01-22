@@ -7,6 +7,7 @@
 
 #include "../ECUAL/KEYPAD/KEYPAD.h"
 #include "../ECUAL/LCD/LCD.h"
+#include "../ECUAL/LED/LED.h"
 int main(void){
 	KEYPAD_u8Init();
 	LCD_u8Init();
@@ -25,6 +26,5 @@ int main(void){
 			LCD_u8SendNumber(key);
 			counter++;
 		}
-		TIMER0_u8PollingDelay(100);
 	}
 }

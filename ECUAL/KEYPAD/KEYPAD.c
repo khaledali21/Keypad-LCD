@@ -9,6 +9,10 @@
 
 
 const static uint8_t KEYPAD[KEYPAD_ROWS][KEYPAD_COLS] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+/*
+* brief: This function is used to initialize pin directions of the keypad as defined in the configurations
+* return: (output) the Error state of the function 0 if an error happens and 1 otherwise
+*/
 KEYPAD_ERR_STATE KEYPAD_u8Init(void){
 	KEYPAD_ERR_STATE state = KEYPAD_OK;
 	//Set Cols direction output
@@ -44,7 +48,11 @@ KEYPAD_ERR_STATE KEYPAD_u8Init(void){
 	
 	return state;
 }
-
+/*
+* brief: This function is used to get the value of the key pressed in the keypad
+* param.: (input) a pointer to a variable to hold the key value that was pressed and MAX value if none pressed
+* return: (output) the Error state of the function 0 if an error happens and 1 otherwise
+*/
 KEYPAD_ERR_STATE KEYPAD_u8GetKey(uint8_t* key){
 	KEYPAD_ERR_STATE state = KEYPAD_OK;
 	if(key == NULL){
@@ -52,7 +60,6 @@ KEYPAD_ERR_STATE KEYPAD_u8GetKey(uint8_t* key){
 	}
 	else{
 		uint8_t pin;
-		uint8_t acquired = 0;
 		*key = 0xFF;
 		for(uint8_t col = 0; col < KEYPAD_COLS; col++){
 			switch(col){
@@ -87,8 +94,7 @@ KEYPAD_ERR_STATE KEYPAD_u8GetKey(uint8_t* key){
 				}
 				if(pin == LOW){
 					*key = KEYPAD[row][col];
-					acquired = 1;
-					TIMER0_u8PollingDelay(10);
+					TIMER0_u8PollingDelay(200);
 				}
 			}
 			switch(col){
